@@ -7,8 +7,9 @@ class LINE extends Command {
         this.receiverID = '';
         this.checkReader = [];
         this.stateStatus = {
-            cancel: 0,
-            kick: 0,
+            cancel: 1,
+            kick: 1,
+            qrp: 1,
         };
         this.messages;
         this.payload;
@@ -70,26 +71,6 @@ class LINE extends Command {
                 this._kickMember(operation.param1,[operation.param2]);
             } 
 
-        }
-
-        if(operation.type == 55){ //ada reader
-            const idx = this.checkReader.findIndex((v) => {
-                if(v.group == operation.param1) {
-                    return v
-                }
-            })
-            if(this.checkReader.length < 1 || idx == -1) {
-                this.checkReader.push({ group: operation.param1, users: [operation.param2], timeSeen: [operation.param3] });
-            } else {
-                for (var i = 0; i < this.checkReader.length; i++) {
-                    if(this.checkReader[i].group == operation.param1) {
-                        if(!this.checkReader[i].users.includes(operation.param2)) {
-                            this.checkReader[i].users.push(operation.param2);
-                            this.checkReader[i].timeSeen.push(operation.param3);
-                        }
-                    }
-                }
-            }
         }
 
         if(operation.type == 13) { // diinvite
