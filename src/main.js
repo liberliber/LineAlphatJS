@@ -12,13 +12,7 @@ class LINE extends Command {
             qrp: 1,
         };
         this.messages;
-        this.payload;
-        this.stateUpload =  {
-                file: '',
-                name: '',
-                group: '',
-                sender: ''
-            }
+        this.payload
     }
 
 
@@ -50,7 +44,7 @@ class LINE extends Command {
         }
 
         if(operation.type == 13 && this.stateStatus.cancel == 1) {
-            this._cancel(operation.param2,operation.param1);
+            this._cancel(operation.param1,[operation.param2]);
             
         }
 
